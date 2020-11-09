@@ -1,3 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
+
+
+        <input name="test_repo" className="input" ref={register({required: { value: true, message: "You must enter Test Repo" }})}/>
+          {errors.test_repo && (
+            <div >{errors.test_repo.message}</div>
+          )}
