@@ -108,11 +108,20 @@ h1.apple {
   background-position: 57%;
 }
 
-p {
+.error {
   color: #bf1650;
 }
 
-p::before {
+.error::before {
   display: inline;
   content: "⚠ ";
+}
+
+.success {
+  color: #16bf32;
+}
+
+.success::before{
+  display: inline;
+  content: '✓ ';
 }

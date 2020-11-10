@@ -75,9 +75,15 @@ function App() {
     .then(response => response.json())
     .then(data => {
       console.log('Success:', data);
+      document.getElementById("f_error").style.display = "block"
     })
     .catch((error) => {
       console.error('Error:', error);
+      let el;
+      el = document.getElementById("f_error");
+      el.className = "error";
+      el.innerText = error
+      el.style.display = "block"
     });
       }
 
@@ -87,7 +93,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="infoboxheader">
 
-      <h1 className="apple">Cidera</h1>
+      <h1 className="apple">Bidera</h1>
       </div>
       <form onSubmit={handleSubmit(data => submitForm(data))} className="form">
         <Header />
@@ -103,28 +109,24 @@ function App() {
           />
         </section>
         <section>
-        <label>Test Repo:</label>
-        <input name="test_repo" className="input" ref={register({ required: "Test Repo is required" })}/>
-        <ErrorMessage errors={errors} name="test_repo" as="p" />
-      </section>
-          <section>
+          <label>Test Repo:</label>
+          <input name="test_repo" className="input" ref={register({ required: {value: true, message: "Test Repo is required" }})}/>
+          {errors.test_repo && (<div className="error">{errors.test_repo.message}</div>)}
+        </section>
+        <section>
             <label>Profile ID</label>
-            <Controller as={TextField} name="profile_id" control={control} rules={{required: "Profile ID is required" }}/>
-            <ErrorMessage errors={errors} name="profile_id" as="p" />
-          </section>
-          
-          <section className="checkboxes">
+            <Controller as={TextField} name="profile_id" control={control} rules={{required: {value: true, message: "Profile ID is required" } }}/>
+            {errors.profile_id && (
+          <div className="error">{errors.profile_id.message}</div>)}
+        </section>
+        <section className="checkboxes">
           <label>Select Devices</label>
-          <Controller
-          as={MultiSelect}
-          options={devices}
-          name="devices"
-          control={control}
-        />
+          <Controller as={MultiSelect} options={devices} name="devices"control={control}/>
         </section>
         </div>
 
         <ButtonsResult {...{ data, reset, defaultValues }} />
+        <p id="f_error" className="success" style={{display:"none"}}>Job Submitted Successfully</p>
       </form>
     </ThemeProvider>
   );
